@@ -8,3 +8,20 @@ describe('the server', () => {
     expect(env).toBe('testing');
   });
 });
+
+describe('Post /', () => {
+  const mockGame = {
+    title: 'Mario',
+    genre: 'Platformer',
+    releaseYear: 1988
+  };
+
+  beforeEach(() => {
+    return db('game').trunctate();
+  });
+
+  it('should return 201 on success post', async () => {
+    const res = await request(server).post('/').send(mockGame);
+    expect(res.status).toBe(201);
+  });
+})

@@ -32,14 +32,15 @@ describe('the Games Model', () => {
   describe('the Find Fn', () => {
 
     it('should get all games on the database', async () => {
+      const mockGame2 = {...mockGame, title: 'Luigi'}
       await db('games').insert([
         mockGame,
-        mockGame
+        mockGame2
       ]);
 
       const games = await Games.find();
       expect(games.length).toBe(2);
-      expect(games[1].title).toBe('Mario');
-    })
+      expect(games[1].title).toBe('Luigi');
+    });
   })
 })

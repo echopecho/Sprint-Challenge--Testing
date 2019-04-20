@@ -36,6 +36,12 @@ describe('Post /', () => {
     const res = await request(server).post('/').send({...mockGame, genre: null});
     expect(res.status).toBe(422);
   });
+
+  it('should return 405 if a duplcate game title is added', async () => {
+    await db('games').insert(mockGame);
+    const res = await request(server).post('/').send(mockGame);
+    expect(res.status).toBe(405);
+  })
 });
 
 describe('Get /', () => {
@@ -56,11 +62,17 @@ describe('Get /', () => {
   });
 
   it('should return an array of 2 items', async () => {
+    const mockGame2 = {...mockGame, title: 'Luigi'};
     await db('games').insert([
       mockGame,
-      mockGame
+      mockGame2
     ]);
     const res = await request(server).get('/');
     expect(res.body.length).toBe(2);
+  });
+
+  it('should return an empty array if no games are on database', async () => {
+    const res = await request(server).get('/');
+    expect(res.body).toEqual([]);
   })
 })

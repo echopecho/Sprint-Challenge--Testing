@@ -37,5 +37,18 @@ server.get('/games', async (req, res) => {
   }
 });
 
+server.get('/games/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const game = await Games.findByID(id);
+    if(game) {
+      res.status(200).json(game);
+    } else {
+      res.status(404).json({message: "Game with that ID does not exist"})
+    }
+  } catch (e) {
+    res.status(500).json({error: "Something went wrong with the server"})
+  }
+})
 
 module.exports = server;

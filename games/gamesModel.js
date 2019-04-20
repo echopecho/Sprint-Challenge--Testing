@@ -3,6 +3,7 @@ const db = require('../data/dbConfig.js');
 module.exports = {
   find,
   findBy,
+  findByID,
   create,
 };
 
@@ -17,4 +18,8 @@ async function create(game) {
 
 function findBy(title) {
   return db('games').where({title}).first();
+};
+
+function findByID(id) {
+  return db('games').where({id}).first();
 }

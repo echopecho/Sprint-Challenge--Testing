@@ -88,10 +88,15 @@ describe('Get /games/:id', () => {
     return db('games').truncate();
   });
 
-  it('should return single game based on id', async () => {
+  it('should return status 200 and a single game based on id', async () => {
     await db('games').insert(mockGame);
     const res = await request(server).get('/games/1');
     expect(res.status).toBe(200);
     expect(res.body.title).toBe('Mario');
+  });
+
+  it('should return status 404 if no matching id', async () => {
+    const res = await request(server).get('/games/1');
+    expect(res.status).toBe(404);
   })
-})
+});

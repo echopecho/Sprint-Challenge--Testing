@@ -5,7 +5,7 @@ const server = express();
 
 server.use(express.json());
 
-server.post('/', async (req, res) => {
+server.post('/games', async (req, res) => {
   const { title, genre } = req.body;
 
   if(title && genre) {
@@ -22,19 +22,20 @@ server.post('/', async (req, res) => {
     } catch(e) {
       res.status(500).json({error: "Something went wrong with the server"})
     }
-    
+
   } else {
     res.status(422).json({message: "Please include both title and genre"})
   }
 });
 
-server.get('/', async (req, res) => {
+server.get('/games', async (req, res) => {
   try {
     const games = await Games.find();
     res.status(200).json(games);
   } catch(e) {
     res.status(500).json({error: "Something went wrong with the server"})
   }
-})
+});
+
 
 module.exports = server;

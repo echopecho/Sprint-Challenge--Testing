@@ -26,4 +26,9 @@ describe('Post /', () => {
     const res = await request(server).post('/').send(mockGame);
     expect(res.status).toBe(201);
   });
+
+  it('should return 422 if title is missing', async () => {
+    const res = await request(server).post('/').send({...mockGame, title: null})
+    expect(res.status).toBe(422);
+  })
 })

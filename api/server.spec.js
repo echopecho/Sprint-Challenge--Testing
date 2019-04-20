@@ -28,7 +28,12 @@ describe('Post /', () => {
   });
 
   it('should return 422 if title is missing', async () => {
-    const res = await request(server).post('/').send({...mockGame, title: null})
+    const res = await request(server).post('/').send({...mockGame, title: null});
+    expect(res.status).toBe(422);
+  });
+
+  it('should return 422 if genre is missing', async () => {
+    const res = await request(server).post('/').send({...mockGame, genre: null});
     expect(res.status).toBe(422);
   })
 })

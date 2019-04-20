@@ -1,6 +1,8 @@
 const server = require('./server.js');
 const request = require('supertest');
 
+const db = require('../data/dbConfig.js');
+
 describe('the server', () => {
 
   it('should run the test database', () => {
@@ -17,7 +19,7 @@ describe('Post /', () => {
   };
 
   beforeEach(() => {
-    return db('game').trunctate();
+    return db('games').truncate();
   });
 
   it('should return 201 on success post', async () => {

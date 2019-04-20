@@ -6,5 +6,5 @@ describe('the server', () => {
   it('should run the test database', () => {
     const env = process.env.DB_ENV;
     expect(env).toBe('testing');
-  })
-})
+  });
+});

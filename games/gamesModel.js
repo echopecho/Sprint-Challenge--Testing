@@ -5,8 +5,8 @@ module.exports = {
   create,
 };
 
-async function find() { 
-  return null;
+function find() { 
+  return db('games');
 };
 
 async function create(game) {

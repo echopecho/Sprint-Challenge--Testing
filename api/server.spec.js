@@ -39,6 +39,11 @@ describe('Post /', () => {
 });
 
 describe('Get /', () => {
+  const mockGame = {
+    title: 'Mario',
+    genre: 'Platformer',
+    releaseYear: 1988
+  };
 
   beforeEach(() => {
     return db('games').truncate();
@@ -48,5 +53,14 @@ describe('Get /', () => {
       const res = await request(server).get('/');
       expect(res.status).toBe(200);
       expect(res.type).toBe('application/json');
+  });
+
+  it('should return an array of 2 items', async () => {
+    await db('games').insert([
+      mockGame,
+      mockGame
+    ]);
+    const res = await request(server).get('/');
+    expect(res.body.length).toBe(2);
   })
 })

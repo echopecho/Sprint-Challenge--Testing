@@ -8,19 +8,24 @@ describe('the Games Model', () => {
   })
   
   describe('the Create Fn', () => {
+    const mockGame = {
+      title: 'Mario',
+      genre: 'Platformer',
+      releaseYear: 1988
+    };
 
     it('should add a game to the database', async () => {
-      const mockGame = {
-        title: 'Mario',
-        genre: 'Platformer',
-        releaseYear: 1988
-      }
-
       await Games.create(mockGame);
 
       const game = await db('games');
       expect(game.length).toBe(1);
-      expect(game[0].title).toEqual(mockGame.title);
+      expect(game[0]).toEqual({...mockGame, id: 1});
+    });
+
+    it('should return the newly added game', async () => {
+      const game = await Games.create(mockGame);
+
+      expect(game).toEqual({...mockGame, id: 1 });
     })
   })
 })

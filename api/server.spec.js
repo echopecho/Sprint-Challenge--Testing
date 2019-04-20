@@ -35,5 +35,18 @@ describe('Post /', () => {
   it('should return 422 if genre is missing', async () => {
     const res = await request(server).post('/').send({...mockGame, genre: null});
     expect(res.status).toBe(422);
+  });
+});
+
+describe('Get /', () => {
+
+  beforeEach(() => {
+    return db('games').truncate();
+  });
+
+  it('should return status 200 and JSON data', async () => {
+      const res = await request(server).get('/');
+      expect(res.status).toBe(200);
+      expect(res.type).toBe('application/json');
   })
 })

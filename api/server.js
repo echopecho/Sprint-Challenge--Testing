@@ -20,4 +20,13 @@ server.post('/', async (req, res) => {
   }
 });
 
+server.get('/', async (req, res) => {
+  try {
+    const games = await Games.find();
+    res.status(200).json(games);
+  } catch(e) {
+    res.status(500).json({error: "Something went wrong with the server"})
+  }
+})
+
 module.exports = server;

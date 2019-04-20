@@ -2,6 +2,10 @@ const Games = require('./gamesModel.js');
 const db = require('../data/dbConfig.js');
 
 describe('the Games Model', () => {
+
+  beforeEach(() => {
+    return db('games').truncate();
+  })
   
   describe('the Create Fn', () => {
 
@@ -14,9 +18,9 @@ describe('the Games Model', () => {
 
       await Games.create(mockGame);
 
-      const game = await db('Games');
+      const game = await db('games');
       expect(game.length).toBe(1);
-      expect(game).toEqual(mockgame);
+      expect(game[0].title).toEqual(mockGame.title);
     })
   })
 })

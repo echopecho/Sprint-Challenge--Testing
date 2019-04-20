@@ -9,6 +9,6 @@ async function find() {
   return null;
 };
 
-async function create() {
-  return null;
+async function create(game) {
+  return db('games').insert(game);
 };

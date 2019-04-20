@@ -10,11 +10,19 @@ server.post('/', async (req, res) => {
 
   if(title && genre) {
     try {
-      const newGame = await Games.create(req.body);
-      res.status(201).json(newGame);
+      const duplicate = await Games.findBy(title);
+
+      if(!duplicate) {
+        const newGame = await Games.create(req.body);
+        res.status(201).json(newGame);
+      } else {
+        res.status(405).json({message: "A game by that title already exists"})
+      }
+      
     } catch(e) {
       res.status(500).json({error: "Something went wrong with the server"})
     }
+    
   } else {
     res.status(422).json({message: "Please include both title and genre"})
   }
